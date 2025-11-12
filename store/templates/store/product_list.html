@@ -1,0 +1,104 @@
+{% extends "_base.html" %}
+{% block title %}Opera Home | Elevate Your Living{% endblock %}
+{% block meta_desc %}Premium home essentials in a modern black & gold aesthetic. Shop curated pieces built for everyday luxury.{% endblock %}
+
+{% block content %}
+<!-- ===== Hero ===== -->
+<section class="hero" aria-label="Hero">
+  <div class="hero__in">
+    <h1>Live Beautifully, Every Day</h1>
+    <p>Timeless forms, durable materials, and a black-and-gold signature that elevates any space.</p>
+    <div class="hero__actions">
+      <a href="{% url 'store:products_list' %}" class="btn btn--gold">Shop Collection</a>
+      <a href="#features" class="btn">Why Opera Home</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Features (3) ===== -->
+<section id="features" class="container" aria-label="Key features" style="margin-top:28px">
+  <div class="grid grid--3" role="list">
+    <article class="card" role="listitem">
+      <span class="badge">Craft</span>
+      <h3>Built to Last</h3>
+      <p>Engineered with premium materials and tested for daily use—quality you can feel and rely on.</p>
+    </article>
+    <article class="card" role="listitem">
+      <span class="badge">Design</span>
+      <h3>Modern & Minimal</h3>
+      <p>A restrained palette and precise lines deliver a calm, luxurious presence in every room.</p>
+    </article>
+    <article class="card" role="listitem">
+      <span class="badge">Service</span>
+      <h3>Seamless Experience</h3>
+      <p>Fast shipping, safe checkout, and dedicated support—so you focus on living well.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===== Best Sellers (hook to products) ===== -->
+<section class="container" aria-label="Highlights" style="margin-top:28px">
+  <header class="card" style="display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <h3 style="margin:.2rem 0">Editor’s Picks</h3>
+      <p class="product__desc" style="margin:0">A rotating curation from our design team.</p>
+    </div>
+    <a class="btn" href="{% url 'store:products_list' %}">View All</a>
+  </header>
+
+  {% comment %} If you want dynamic picks later, loop 3 products here {% endcomment %}
+  <div class="grid grid--3" role="list" style="margin-top:18px">
+    <article class="card product" role="listitem" aria-label="Placeholder item">
+      <div class="product__media"><div class="product__placeholder" aria-hidden="true"></div></div>
+      <div class="product__body">
+        <span class="badge">Kitchen</span>
+        <h3>Matte Gold Kettle</h3>
+        <p class="product__desc">Precision-pour spout with thermal core for daily performance.</p>
+        <p class="price">$89</p>
+      </div>
+    </article>
+    <article class="card product" role="listitem" aria-label="Placeholder item">
+      <div class="product__media"><div class="product__placeholder" aria-hidden="true"></div></div>
+      <div class="product__body">
+        <span class="badge">Living</span>
+        <h3>Velvet Cushion Set</h3>
+        <p class="product__desc">Rich texture, removable covers, and hypoallergenic fill.</p>
+        <p class="price">$59</p>
+      </div>
+    </article>
+    <article class="card product" role="listitem" aria-label="Placeholder item">
+      <div class="product__media"><div class="product__placeholder" aria-hidden="true"></div></div>
+      <div class="product__body">
+        <span class="badge">Storage</span>
+        <h3>Modular Organizer</h3>
+        <p class="product__desc">Stackable, silent-close modules for an ordered home.</p>
+        <p class="price">$74</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===== About Teaser ===== -->
+<section class="container" aria-label="About Opera Home" style="margin-top:28px">
+  <div class="card">
+    <h3>Our Design Ethos</h3>
+    <p class="product__desc">
+      We create purposeful objects that blend craftsmanship with modern restraint. 
+      The result: pieces that age with character and perform without compromise.
+    </p>
+    <a href="{% url 'store:products_list' %}" class="btn">Explore the Store</a>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="container" aria-label="Call to action" style="margin:28px 0 8px">
+  <div class="card" style="text-align:center">
+    <h3>Ready to refresh your space?</h3>
+    <p class="product__desc">Start with our best-selling essentials, curated for effortless upgrades.</p>
+    <div class="hero__actions" style="justify-content:center">
+      <a href="{% url 'store:products_list' %}" class="btn btn--gold" aria-label="Shop the collection">Shop Now</a>
+      <a href="{% url 'store:products_create' %}" class="btn" aria-label="Add a new product (admin)">Add Product</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

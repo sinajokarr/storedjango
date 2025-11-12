@@ -1,0 +1,35 @@
+{% extends "_base.html" %}
+{% block title %}Delete Product | Opera Home{% endblock %}
+{% block meta_desc %}Confirm deletion of a product from the Opera Home catalog.{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero" aria-label="Delete hero">
+  <div class="hero__in">
+    <h1>Delete Product</h1>
+    <p class="lead">You’re about to remove an item from your catalog.</p>
+  </div>
+</section>
+
+<!-- Confirm Card -->
+<section class="container section" aria-label="Delete confirmation">
+  <div class="card reveal is-in" role="alertdialog" aria-labelledby="del-title" aria-describedby="del-desc">
+    <h2 id="del-title" class="h2 m-0">Are you sure?</h2>
+    <p id="del-desc" class="product__desc">
+      This action will permanently delete
+      <strong>“{{ object.name }}”</strong>. It cannot be undone.
+    </p>
+
+    <form method="post" class="hero__actions" style="gap:12px">
+      {% csrf_token %}
+      <!-- Destructive button styled inline to avoid changing global CSS -->
+      <button type="submit" class="btn" style="background:#2a0f12;border-color:#4a1418;color:#fbe3e3">
+        Delete permanently
+      </button>
+      <a href="{% url 'store:products_list' %}" class="btn btn--ghost" aria-label="Cancel and go back to products">
+        Cancel
+      </a>
+    </form>
+  </div>
+</section>
+{% endblock %}

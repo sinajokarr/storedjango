@@ -1,0 +1,94 @@
+{% extends "_base.html" %}
+{% block title %}Cart | Opera Home{% endblock %}
+{% block meta_desc %}Review your selected Opera Home items and proceed to a secure checkout.{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero" aria-label="Cart hero">
+  <div class="hero__in">
+    <h1>Your Cart</h1>
+    <p class="lead">Curated home essentials, crafted to elevate your everyday.</p>
+    <div class="hero__actions">
+      <a href="{% url 'store:products_list' %}" class="btn">Continue Shopping</a>
+    </div>
+  </div>
+</section>
+
+<!-- Cart Table -->
+<section class="container section" aria-label="Cart items">
+  {% if cart.items.all %}
+    <div class="card reveal is-in" role="region" aria-label="Items table">
+      <table class="table" style="width:100%">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Line Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart.items.all %}
+            {% if item.product %}
+              {% widthratio item.product.price 1 item.quantity as line_total %}
+              <tr>
+                <td>
+                  <div class="grid" style="grid-template-columns:96px 1fr; gap:12px; align-items:center;">
+                    <div class="product__media" style="aspect-ratio:4/3">
+                      {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" loading="lazy">
+                      {% else %}
+                        <div class="product__placeholder" aria-hidden="true"></div>
+                      {% endif %}
+                    </div>
+                    <div>
+                      <a href="{% url 'store:products_detail' item.product.pk %}">
+                        <strong>{{ item.product.name }}</strong>
+                      </a>
+                      {% if item.product.category %}
+                        <div class="badge" style="margin-top:6px">{{ item.product.category.name }}</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </td>
+                <td class="price">{{ item.product.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td class="price">{{ line_total }}</td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {# Subtotal (second pass to avoid custom filters) #}
+    {% with subtotal=0 %}
+      {% for item in cart.items.all %}
+        {% widthratio item.product.price 1 item.quantity as lt %}
+        {% with subtotal=subtotal|add:lt %}{% endwith %}
+      {% endfor %}
+      <div class="card mt-2 reveal is-in" aria-label="Order summary">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div>
+            <h3 class="m-0">Order Summary</h3>
+            <p class="product__desc m-0">Taxes and shipping are calculated at checkout.</p>
+          </div>
+          <div style="text-align:right">
+            <div class="lead">Subtotal: <span class="price">{{ subtotal }}</span></div>
+            <div class="hero__actions" style="justify-content:flex-end;margin-top:10px">
+              <a class="btn btn--gold" href="#" aria-label="Proceed to checkout">Proceed to Checkout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endwith %}
+
+  {% else %}
+    <div class="empty reveal is-in">
+      <h3>Your cart is empty</h3>
+      <p class="product__desc">Browse our latest collection and add your first item.</p>
+      <a href="{% url 'store:products_list' %}" class="btn btn--gold">Browse Products</a>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

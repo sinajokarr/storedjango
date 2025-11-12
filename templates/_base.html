@@ -1,0 +1,63 @@
+{% load static %}
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Opera Home | Luxury Home Essentials{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}Opera Home — premium home essentials with a modern black-and-gold aesthetic.{% endblock %}" />
+  <meta name="theme-color" content="#0b0b0b" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <!-- bump ?v to break cache after edits -->
+  <link rel="stylesheet" href="{% static 'css/opera.css' %}?v=7" />
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="header" role="banner" aria-label="Site header">
+  <div class="container header__in">
+    <!-- Brand → go to Home -->
+    <a href="{% url 'store:home' %}" class="brand" aria-label="Opera Home homepage">
+      Opera <span>Home</span>
+    </a>
+
+    <!-- Primary navigation -->
+    <nav class="nav" role="navigation" aria-label="Primary navigation">
+      <ul>
+        <li><a href="{% url 'store:home' %}">Home</a></li>
+        <li><a href="{% url 'store:products_list' %}">Products</a></li>
+        <li><a href="{% url 'store:products_create' %}">Add Product</a></li>
+        <li><a href="{% url 'store:cart_detail' %}" class="btn">Cart</a></li>
+        <li><a href="{% url 'store:about' %}">About</a></li>
+        <li><a href="{% url 'store:contact' %}">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="container" tabindex="-1">
+  {% if messages %}
+    <div role="status" aria-live="polite">
+      {% for message in messages %}
+        <div class="card">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer" role="contentinfo" aria-label="Footer">
+  <div class="container footer__in">
+    <p>© 2025 Opera Home — Luxury quality for everyday living.</p>
+    <nav aria-label="Footer links">
+      <a href="{% url 'store:products_list' %}">Shop</a>
+      &nbsp;|&nbsp;
+      <a href="#" aria-disabled="true" tabindex="-1">Privacy &amp; Terms</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

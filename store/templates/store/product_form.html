@@ -1,0 +1,57 @@
+{% extends "_base.html" %}
+
+{% block title %}{{ form.instance.pk|yesno:"Edit Product | Opera Home,Add Product | Opera Home" }}{% endblock %}
+{% block meta_desc %}{{ form.instance.pk|yesno:"Update an existing product in Opera Home,Create a new product in Opera Home" }}.{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero" aria-label="Product form hero">
+  <div class="hero__in">
+    <h1 class="m-0">
+      {{ form.instance.pk|yesno:"Edit Product,Add New Product" }}
+    </h1>
+    <p class="lead m-0">
+      Provide clear details and high-quality images for a better shopping experience.
+    </p>
+  </div>
+</section>
+
+<!-- Form Card -->
+<section class="container section" aria-label="Product form">
+  <div class="card reveal is-in" style="max-width: 760px; margin-inline:auto">
+    {% if form.non_field_errors %}
+      <div class="empty" role="alert">
+        <h3>There was a problem</h3>
+        <p class="product__desc">{{ form.non_field_errors }}</p>
+      </div>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+
+      {# Render fields with accessible labels and built-in styles from opera.css #}
+      {% for field in form %}
+        <div style="margin-bottom:14px">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}
+            <p class="product__desc" style="margin:.25rem 0 0">{{ field.help_text }}</p>
+          {% endif %}
+          {% if field.errors %}
+            <p class="product__desc" role="alert" style="color:#ffb3b3;margin:.25rem 0 0">
+              {{ field.errors|join:", " }}
+            </p>
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      <div class="hero__actions" style="justify-content:space-between;margin-top:18px">
+        <a href="{% url 'store:products_list' %}" class="btn" aria-label="Cancel and go back to products">Cancel</a>
+        <button type="submit" class="btn btn--gold">
+          {{ form.instance.pk|yesno:"Save Changes,Create Product" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

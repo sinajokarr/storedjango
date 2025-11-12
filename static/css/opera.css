@@ -1,0 +1,301 @@
+/* =========================================================
+   Opera Home – Black & Gold Luxury Theme (v2)
+   - Minimal, modern, high-contrast
+   - Accessible focus states
+   - Responsive grids & components
+   - Subtle motion (respects reduced motion)
+   ========================================================= */
+
+/* ---------- Root Tokens ---------- */
+:root{
+  /* Palette */
+  --bg:#0b0b0b;
+  --panel:#121214;
+  --panel-2:#0e0f10;
+  --gold:#c9a227;
+  --gold2:#e0c157;
+  --txt:#f0f0f0;
+  --muted:#a7adb4;
+  --border:#1f1f1f;
+  --focus:#e0c157;
+
+  /* Type scale */
+  --fs-xxl: clamp(32px, 6vw, 56px);
+  --fs-xl:  clamp(24px, 4.4vw, 40px);
+  --fs-lg:  clamp(18px, 2.2vw, 22px);
+  --fs-md:  16px;
+  --fs-sm:  14px;
+  --fs-xs:  12px;
+
+  /* Layout */
+  --container:1200px;
+  --rad:16px;
+  --rad-sm:12px;
+  --pad:20px;
+  --gap:18px;
+  --shadow: 0 12px 30px rgba(0,0,0,.35);
+
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box}
+
+/* ---------- Base ---------- */
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  font-size:var(--fs-md);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+img{max-width:100%;height:auto;display:block}
+
+a{color:inherit;text-decoration:none}
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+.btn:focus-visible{
+  outline:2px solid var(--focus);
+  outline-offset:2px;
+  border-radius:10px;
+}
+
+/* Skip link */
+.skip{
+  position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;
+}
+.skip:focus{
+  left:12px;top:12px;width:auto;height:auto;
+  background:#0f0f0f;color:#111;padding:8px 12px;border-radius:10px;z-index:999;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+}
+
+/* ---------- Containers ---------- */
+.container{max-width:var(--container);margin:auto;padding:0 var(--pad)}
+.section{padding:32px 0}
+.divider{height:1px;background:var(--border);margin:24px 0}
+
+/* ---------- Header / Nav ---------- */
+.header{
+  position:sticky;top:0;z-index:40;
+  background:rgba(11,11,11,.72);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.header__in{
+  display:flex;align-items:center;justify-content:space-between;min-height:68px;
+}
+.brand{
+  font-weight:800;letter-spacing:.4px;font-size:var(--fs-lg);
+}
+.brand span{color:var(--gold)}
+
+.nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+.nav a{padding:8px 10px;border-radius:10px;transition:background .18s ease}
+.nav a:hover{background:#141414}
+
+/* Mobile nav (optional – if you later add a menu button) */
+@media (max-width:800px){
+  .nav ul{gap:10px}
+}
+
+/* ---------- Footer ---------- */
+.footer{border-top:1px solid var(--border);background:var(--panel-2);margin-top:40px}
+.footer__in{display:flex;justify-content:space-between;align-items:center;min-height:64px;gap:12px;flex-wrap:wrap}
+.footer a{opacity:.9}
+.footer a:hover{opacity:1}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-block;
+  padding:10px 14px;
+  border:1px solid var(--border);
+  border-radius:var(--rad-sm);
+  font-weight:700;
+  transition:transform .12s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  will-change:transform;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn--gold{
+  border:none; color:#111;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  box-shadow:0 0 0 rgba(0,0,0,0);
+}
+.btn--gold:hover{
+  box-shadow:0 8px 26px rgba(201,162,39,.25);
+}
+.btn--ghost{
+  background:transparent;border-color:var(--border);
+}
+.btn--subtle{
+  background:#141414;border-color:#1a1a1a;
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding:64px 0;
+  background:
+    radial-gradient(900px 420px at 80% 0%, rgba(201,162,39,.14), transparent 60%),
+    radial-gradient(760px 360px at 10% 110%, rgba(224,193,87,.06), transparent 60%);
+}
+.hero h1{
+  margin:0 0 10px;
+  font-size:var(--fs-xxl);
+  font-weight:800;
+  letter-spacing:.2px;
+}
+.hero p{margin:0 0 16px;color:var(--muted);max-width:780px}
+.hero__in{max-width:940px;margin:auto}
+.hero__actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+
+/* ---------- Typography helpers ---------- */
+.h1{font-size:var(--fs-xxl);font-weight:800;margin:.2em 0}
+.h2{font-size:var(--fs-xl); font-weight:700;margin:.6em 0 .4em}
+.lead{color:var(--muted);font-size:var(--fs-lg)}
+
+/* ---------- Grid & Cards ---------- */
+.grid{display:grid;gap:var(--gap)}
+.grid--2{grid-template-columns:repeat(2,1fr)}
+.grid--3{grid-template-columns:repeat(3,1fr)}
+.grid--auto{grid-template-columns:repeat(auto-fill, minmax(260px,1fr))}
+
+@media (max-width:1024px){ .grid--3{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:640px){ .grid--2,.grid--3,.form-row{grid-template-columns:1fr} }
+
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.20));
+  border:1px solid var(--border);
+  border-radius:var(--rad);
+  padding:18px;
+  box-shadow:0 0 0 rgba(0,0,0,0);
+  transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.card:hover{ transform:translateY(-2px); box-shadow:var(--shadow); border-color:#222; }
+.card h3{margin:0 0 6px}
+.badge{
+  display:inline-block;padding:4px 10px;border-radius:999px;
+  background:#1a1a1a;border:1px solid var(--border);color:var(--gold);
+  font-size:var(--fs-xs);letter-spacing:.2px;
+}
+
+/* ---------- Products ---------- */
+.product{
+  display:flex;flex-direction:column;gap:10px;
+  transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.product:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.product__media{
+  aspect-ratio:4/3;
+  background:#0f1011;
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid var(--border);
+}
+.product__media img{width:100%;height:100%;object-fit:cover;transform:scale(1);transition:transform .35s ease}
+.product:hover .product__media img{transform:scale(1.03)}
+.product__placeholder{
+  width:100%;height:100%;
+  background:
+   radial-gradient(120% 80% at 60% 0, rgba(201,162,39,.16), transparent 60%),
+   linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.22));
+}
+.product__body h3{margin:6px 0;font-size:var(--fs-lg)}
+.product__desc{color:#cfcfcf;margin:4px 0 10px}
+.price{color:var(--gold);font-weight:800}
+
+/* ---------- Tables (if used) ---------- */
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{border-bottom:1px solid var(--border);padding:10px;text-align:start}
+.table th{color:#dcdcdc;font-weight:700}
+
+/* ---------- Forms ---------- */
+.form-row{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+input,select,textarea{
+  width:100%;
+  padding:12px 12px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#0f1011;
+  color:var(--txt);
+  transition:border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+label{display:block;margin:10px 0 6px;color:#d9d9d9}
+input::placeholder, textarea::placeholder{color:#8b8f93}
+input:focus,select:focus,textarea:focus{
+  outline:none;
+  border-color:#2a2a2a;
+  box-shadow:0 0 0 3px rgba(201,162,39,.18);
+}
+
+/* Inline validation (optional classes) */
+.is-error{border-color:#8b2b2b !important; box-shadow:0 0 0 3px rgba(139,43,43,.25) !important}
+.is-success{border-color:#2b8b5c !important; box-shadow:0 0 0 3px rgba(43,139,92,.20) !important}
+
+/* ---------- States / Empty ---------- */
+.empty{
+  text-align:center;
+  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.25));
+  border:1px solid var(--border);
+  border-radius:var(--rad);
+  padding:28px;
+  margin:24px 0;
+}
+.empty h3{margin:0 0 6px}
+
+/* ---------- Messages (Django messages) ---------- */
+.toast{
+  border:1px solid var(--border);
+  background:var(--panel);
+  border-radius:12px;
+  padding:12px 14px;
+  margin:8px 0;
+}
+.toast--success{border-color:#2b8b5c}
+.toast--warn{border-color:#8b6d2b}
+.toast--error{border-color:#8b2b2b}
+
+/* ---------- Utilities ---------- */
+.m-0{margin:0} .mt-1{margin-top:8px} .mt-2{margin-top:14px} .mt-3{margin-top:20px}
+.mb-1{margin-bottom:8px} .mb-2{margin-bottom:14px} .mb-3{margin-bottom:20px}
+.center{text-align:center}
+.hide{display:none !important}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1180px){
+  :root{ --container:1000px }
+}
+@media (max-width:1024px){
+  :root{ --container:920px }
+}
+@media (max-width:820px){
+  :root{ --container:94vw }
+  .header__in{min-height:64px}
+}
+
+/* ---------- Motion ---------- */
+.reveal{opacity:0; transform:translateY(10px); transition:opacity .4s ease, transform .4s ease}
+.reveal.is-in{opacity:1; transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  .btn,.product,.card,.reveal{transition:none}
+}
+
+/* ---------- Progressive enhancement hooks ---------- */
+/* If you later add a lightbox (CSS-only target/hash), you can reuse these: */
+.lightbox-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(2px);
+}
+.lightbox-img{
+  max-width:min(92vw,1100px);max-height:88vh;border-radius:16px;border:1px solid var(--border);
+  box-shadow:var(--shadow);object-fit:contain;
+}
+
+/* ---------- Picture element defaults ---------- */
+picture{display:block;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
