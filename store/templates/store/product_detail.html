@@ -1,0 +1,30 @@
+{% extends "store/_base.html" %}
+
+{% block title %}{{ product.name }} - دیجی‌شاپ{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row">
+    <!-- تصویر محصول -->
+    <div class="col-md-5 text-center">
+      {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow-sm">
+      {% else %}
+        <img src="https://via.placeholder.com/400x300?text=No+Image" class="img-fluid rounded shadow-sm" alt="No image">
+      {% endif %}
+    </div>
+
+    <!-- مشخصات محصول -->
+    <div class="col-md-7">
+      <h2 class="fw-bold text-primary">{{ product.name }}</h2>
+      <p class="text-muted mt-3">{{ product.description }}</p>
+      <h5 class="mt-4 text-success fw-bold">💰 قیمت: {{ product.price|floatformat:0 }} تومان</h5>
+
+      <div class="mt-4">
+        <button class="btn btn-primary me-2">➕ افزودن به سبد خرید</button>
+        <a href="{% url 'products_list' %}" class="btn btn-outline-secondary">بازگشت به لیست محصولات</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

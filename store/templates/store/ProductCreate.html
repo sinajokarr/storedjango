@@ -1,0 +1,28 @@
+{% extends "store/_base.html" %}
+
+{% block title %}➕ افزودن محصول - دیجی‌شاپ{% endblock %}
+
+{% block content %}
+<div class="container py-5" style="max-width: 700px;">
+  <h2 class="mb-4 text-primary fw-bold text-center">➕ افزودن محصول جدید</h2>
+
+  <form method="post" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm border">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="mb-3">
+        <label class="form-label fw-semibold">{{ field.label }}:</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger small">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <div class="d-flex justify-content-between mt-4">
+      <a href="{% url 'products_list' %}" class="btn btn-outline-secondary">بازگشت</a>
+      <button type="submit" class="btn btn-success">✔️ ثبت محصول</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

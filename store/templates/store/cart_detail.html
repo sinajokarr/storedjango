@@ -1,0 +1,53 @@
+{% extends "pu_base.html" %}
+
+{% block title %}🛒 سبد خرید - دیجی‌شاپ{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4 text-primary fw-bold text-center">🛒 سبد خرید شما</h2>
+
+  {% if cart.cart_items.all %}
+    <div class="table-responsive shadow-sm">
+      <table class="table table-bordered bg-white text-center align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>تصویر</th>
+            <th>نام محصول</th>
+            <th>قیمت واحد</th>
+            <th>تعداد</th>
+            <th>جمع کل</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart.cart_items.all %}
+            <tr>
+              <td style="width: 100px;">
+                {% if item.product.image %}
+                  <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid rounded" style="max-height: 60px;">
+                {% else %}
+                  <img src="https://via.placeholder.com/80x60?text=No+Image" class="img-fluid rounded" alt="No image">
+                {% endif %}
+              </td>
+              <td>{{ item.product.name }}</td>
+              <td>{{ item.product.price|floatformat:0 }} تومان</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.get_total_price|floatformat:0 }} تومان</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="text-end mt-4">
+      <h5>💳 مجموع قابل پرداخت:
+        <span class="text-success fw-bold">{{ cart.get_total_price|floatformat:0 }} تومان</span>
+      </h5>
+      <button class="btn btn-primary mt-3">تکمیل خرید</button>
+    </div>
+  {% else %}
+    <div class="alert alert-info text-center">
+      سبد خرید شما خالی است.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

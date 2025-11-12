@@ -1,0 +1,21 @@
+{% extends "store/_base.html" %}
+
+{% block title %}حذف محصول - دیجی‌شاپ{% endblock %}
+
+{% block content %}
+<div class="container text-center py-5">
+  <h2 class="text-danger mb-4">⚠️ حذف محصول</h2>
+  
+  <p class="lead">
+    آیا مطمئن هستید که می‌خواهید محصول
+    <strong class="text-primary">«{{ object.name }}»</strong>
+    را حذف کنید؟
+  </p>
+
+  <form method="post" class="d-inline-block mt-4">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger me-2">بله، حذف شود</button>
+    <a href="{% url 'products_list' %}" class="btn btn-outline-secondary">لغو</a>
+  </form>
+</div>
+{% endblock %}
