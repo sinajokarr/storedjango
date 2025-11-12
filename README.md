@@ -1,21 +1,11 @@
-<div align="center">
-  
 # 🌑✨ Opera Home: Modern Luxury E-Commerce Platform 
-  
 ***
 
-    
 [![Framework: Django 5.x](https://img.shields.io/badge/Framework-Django%205.x-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
-    
 [![Focus: Clean Architecture](https://img.shields.io/badge/Focus-Clean%20Architecture%20%7C%20CBVs-007ACC?style=for-the-badge&logo=codefactor&logoColor=white)](https://github.com/sinajokarr)
-
 [![System: Persistent Cart](https://img.shields.io/badge/System-Persistent%20Cart%20%26%20Auth-ff9900?style=for-the-badge&logo=shoppingbag&logoColor=white)](https://github.com/sinajokarr)
-
 [![Aesthetic: Luxury Minimal](https://img.shields.io/badge/Aesthetic-Luxury%20Minimal-6c757d?style=for-the-badge&logo=paint&logoColor=white)](https://github.com/sinajokarr)
-
-  
 ***
-</div>
 
 <br>
 
