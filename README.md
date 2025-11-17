@@ -179,4 +179,3 @@ If you have ideas for improvements (checkout flow, DRF API, better analytics), f
 
 
 
-</```
