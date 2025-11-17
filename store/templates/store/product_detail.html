@@ -1,71 +1,26 @@
 {% extends "_base.html" %}
-{% block title %}{{ product.name }} | Opera Home{% endblock %}
-{% block meta_desc %}Explore details, specs, and images for {{ product.name }} at Opera Home.{% endblock %}
+
+{% block title %}Products | Opera Home{% endblock %}
 
 {% block content %}
-<!-- Hero / Breadcrumb -->
-<section class="hero" aria-label="Product hero">
-  <div class="hero__in">
-    <h1 class="m-0">{{ product.name }}</h1>
-    <p class="lead m-0">Premium quality, refined design.</p>
-    <div class="hero__actions">
-      <a href="{% url 'store:products_list' %}" class="btn">← Back to Products</a>
+<section class="page-header">
+    <div>
+        <h1 class="page-title">Products</h1>
+        <p class="page-subtitle">
+            A curated collection of modern home decor and lifestyle products.
+        </p>
     </div>
-  </div>
-</section>
-
-<!-- Product body -->
-<section class="container section" aria-label="Product details">
-  <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 22px;">
-    <!-- Media -->
-    <article class="card product reveal is-in" aria-label="Product media">
-      <div class="product__media" style="aspect-ratio:4/3">
-        {% if product.image %}
-          <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="eager" />
-        {% else %}
-          <div class="product__placeholder" aria-hidden="true"></div>
+    <form method="get" class="search-form">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search products..."
+            value="{{ search_query }}"
+        >
+        {% if current_category %}
+            <input type="hidden" name="category" value="{{ current_category }}">
         {% endif %}
-      </div>
-    </article>
-
-    <!-- Info -->
-    <article class="card reveal is-in" aria-label="Product information">
-      {% if product.category %}
-        <span class="badge">{{ product.category.name }}</span>
-      {% endif %}
-      <h2 class="h2 m-0" style="margin-top:6px">{{ product.name }}</h2>
-      <p class="product__desc mt-2">
-        {{ product.description|default:"This item brings a modern black-and-gold aesthetic to your living space." }}
-      </p>
-
-      <div class="divider"></div>
-
-      <p class="lead m-0">Price</p>
-      <p class="price" style="font-size:clamp(20px,2.6vw,28px);margin:.2em 0 0">
-        {{ product.price }} <span style="color:#cfcfcf;font-weight:600;font-size:.8em">TRY</span>
-      </p>
-
-      <div class="hero__actions" style="margin-top:14px">
-        <!-- Wire this to your add-to-cart view when available -->
-        <form method="post" action="#" aria-label="Add to cart form">
-          {% csrf_token %}
-          <button type="submit" class="btn btn--gold">Add to Cart</button>
-        </form>
-        <a href="{% url 'store:products_list' %}" class="btn">Continue Shopping</a>
-      </div>
-    </article>
-  </div>
+        <button type="submit" class="btn-primary">Search</button>
+    </form>
 </section>
-
-<!-- Related (placeholder, optional) -->
-<section class="container section" aria-label="Related products">
-  <h3 class="m-0">You may also like</h3>
-  <p class="product__desc">Explore more from our curated collection.</p>
-  <div class="grid grid--3 mt-2">
-    <!-- Replace with a for-loop when you have related queryset -->
-    <div class="card"><span class="badge">New</span><h3 class="mt-1">Modern Lamp</h3></div>
-    <div class="card"><span class="badge">Popular</span><h3 class="mt-1">Velvet Cushion</h3></div>
-    <div class="card"><span class="badge">Limited</span><h3 class="mt-1">Marble Tray</h3></div>
-  </div>
-</section>
-{% endblock %}
+...

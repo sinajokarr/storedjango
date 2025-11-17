@@ -19,9 +19,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("", include("store.urls", namespace="store")),
-    path("accounts/", include("django.contrib.auth.urls")), 
+    path("", include(("store.urls", "store"), namespace="store")),
 
+
+    path("accounts/", include("accounts.urls")),
+
+
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 
 if settings.DEBUG:

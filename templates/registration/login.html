@@ -1,0 +1,67 @@
+{% extends "_base.html" %}
+
+{% block title %}Log in | Opera Home{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+  <div class="auth-layout">
+    <!-- Left side: copy / benefits -->
+    <div class="auth-copy">
+      <span class="hero-pill">Opera Home · Account</span>
+      <h1 class="page-title">Welcome back to Opera Home</h1>
+      <p class="page-subtitle">
+        Sign in to see your cart, track orders, and save pieces you love for later.
+      </p>
+
+      <ul class="auth-benefits">
+        <li>View and edit your cart across all your devices.</li>
+        <li>Track delivery status and download your invoices.</li>
+        <li>Save favourites and build your own curated collection.</li>
+      </ul>
+    </div>
+
+    <!-- Right side: login card -->
+    <div class="auth-card" aria-label="Log in form">
+      <h2 class="auth-card__title">Log in to your account</h2>
+      <p class="auth-card__subtitle">
+        Use your Opera Home account details to continue.
+      </p>
+
+      <form method="post" class="auth-form">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="form-errors">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <div class="form-row">
+          <label for="{{ form.username.id_for_label }}">Email or username</label>
+          <div class="form-control">
+            {{ form.username }}
+          </div>
+          {{ form.username.errors }}
+        </div>
+
+        <div class="form-row">
+          <label for="{{ form.password.id_for_label }}">Password</label>
+          <div class="form-control">
+            {{ form.password }}
+          </div>
+          {{ form.password.errors }}
+        </div>
+
+        <div class="auth-actions">
+          <button type="submit" class="btn-primary">Log in</button>
+          <a href="#" class="auth-link">Forgot your password?</a>
+        </div>
+
+        <p class="auth-footnote">
+          New to Opera Home?
+          <a href="#" class="auth-link">Create an account</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

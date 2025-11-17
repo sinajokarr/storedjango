@@ -3,62 +3,96 @@
 {% block title %}About | Opera Home{% endblock %}
 
 {% block content %}
-<section class="hero" aria-label="About Opera Home" id="about">
-  <div class="hero__in">
-    <h1>Behind the Opera Home Signature</h1>
-    <p>
-      Opera Home is a design-driven studio creating modern, durable home essentials
-      with a distinctive black-and-gold signature. Every piece is built to feel as
-      good as it looks—day after day.
+
+<section class="page-hero about-hero" aria-label="About Opera Home">
+  <div class="hero-left">
+    <span class="hero-pill">Opera Home · Design Studio</span>
+    <h1 class="page-title">Design-led pieces for calm, modern homes</h1>
+    <p class="page-subtitle">
+      Opera Home creates furniture, lighting and decor that feel like a boutique hotel,
+      but live comfortably in everyday apartments and houses.
     </p>
+    <ul class="hero-highlights">
+      <li>Minimal silhouettes with warm, quiet colours.</li>
+      <li>Pieces that are easy to style, move and layer.</li>
+      <li>Subtle black-and-gold accents as our signature detail.</li>
+    </ul>
   </div>
 </section>
 
-<section class="container" style="margin-top:26px;margin-bottom:12px">
-  <div class="grid grid--3" aria-label="Brand pillars">
+<section class="container about-section">
+  <div class="grid grid--3" aria-label="Why Opera Home feels different">
     <article class="card">
       <span class="badge">Philosophy</span>
-      <h3>Quiet Luxury, Every Day</h3>
+      <h3>Quiet luxury, not noise</h3>
       <p class="product__desc">
-        We believe luxury is not loud logos—it’s thoughtful details, balanced
-        proportions, and products that age beautifully in real homes.
+        We replace heavy branding with simple forms, soft textures and clean lines.
+        Your rooms feel calm and elevated, not crowded or over-styled.
       </p>
     </article>
 
     <article class="card">
       <span class="badge">Craft</span>
-      <h3>Materials That Endure</h3>
+      <h3>Built for real life</h3>
       <p class="product__desc">
-        From powder-coated metals to high-density fabrics, every material is
-        selected for long-term performance, easy care, and a refined finish.
+        Every finish, fabric and handle is chosen to survive daily use while still
+        looking refined: easy-to-clean surfaces, comfortable proportions, solid details.
       </p>
     </article>
 
     <article class="card">
       <span class="badge">Experience</span>
-      <h3>Designed Around You</h3>
+      <h3>Design help, not just products</h3>
       <p class="product__desc">
-        Clear specs, honest photography, and responsive support—so you can
-        choose the right piece once and enjoy it for years.
+        Honest photography, clear dimensions and styling guidance help you build
+        a complete corner, not just buy a single object and hope it fits.
       </p>
     </article>
   </div>
 </section>
 
-<section class="container" style="margin-bottom:32px">
-  <div class="card" aria-label="Studio story">
-    <h3>Our Studio Story</h3>
+<section class="container about-section">
+  <div class="grid grid--2 about-grid" aria-label="Studio story and process">
+    <article class="card">
+      <h3>From empty rooms to composed spaces</h3>
+      <p class="product__desc">
+        Opera Home started with bare apartments that felt flat and unfinished.
+        The question was simple:
+        <em>what if a few well-chosen pieces could change the mood of an entire room?</em>
+        Each collection we design is an answer to that question.
+      </p>
+      <p class="product__desc">
+        Our team sketches, prototypes and tests in real homes. Anything that feels
+        unnecessary is removed. What remains are confident, easy-to-combine pieces
+        that stay relevant as your life and space change.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>How we build a collection</h3>
+      <ul class="product__desc about-list">
+        <li>Start with a mood: evening light, a colour story, a type of gathering at home.</li>
+        <li>Define a small family of core pieces: seating, tables, lighting and key decor.</li>
+        <li>Design supporting objects that layer in without visual noise.</li>
+        <li>Style everything together so you can recreate the look with just a few items.</li>
+      </ul>
+      <p class="product__desc">
+        The result: rooms that feel curated, warm and lived-in, never like a crowded showroom.
+      </p>
+    </article>
+  </div>
+</section>
+
+<section class="container about-section">
+  <div class="card about-callout" aria-label="Who we design for">
+    <h3>Made for the way you really live</h3>
     <p class="product__desc">
-      Opera Home began with a simple question:
-      <em>what if everyday objects felt like they belonged in a boutique hotel,
-      without the boutique price?</em>
-      Our designers and engineers work together to remove visual noise, refine
-      proportions, and obsess over the touches you feel every single day.
-    </p>
-    <p class="product__desc">
-      We prototype in small batches, test in real homes, and only release what
-      meets our standards for comfort, durability, and timeless appeal.
+      Whether you are furnishing your first apartment or refreshing a long-loved home,
+      Opera Home is designed to give you fewer, better choices. Mix a single statement
+      piece into what you already own or build an entire room from our signature palette—
+      either way, your space should feel intentional, calm and unmistakably yours.
     </p>
   </div>
 </section>
+
 {% endblock %}
