@@ -1,4 +1,4 @@
-
+````markdown
 <div align="center">
   
 # 🛒 Opera Home Store – Quiet Luxury Django E-commerce Template ✨
@@ -8,7 +8,8 @@
 [![Tech: Django](https://img.shields.io/badge/Backend-Django%205.x-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
 [![Language: Python](https://img.shields.io/badge/Language-Python%203.x-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Frontend: HTML/CSS](https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![Status: Portfolio Template](https://img.shields.io/badge/Status-Portfolio%20Piece-1abc9c?style=for-the-badge)](#)
+[![Auth: Custom User](https://img.shields.io/badge/Auth-Custom%20User%20Model-6366f1?style=for-the-badge)](#)
+[![API: Cart Endpoint](https://img.shields.io/badge/API-DRF%20Cart%20Summary-10b981?style=for-the-badge)](#)
   
 ***
 </div>
@@ -19,11 +20,13 @@
 
 **Opera Home Store** is a Django-based e-commerce template for home décor and lifestyle brands that want a **minimal, quiet-luxury UI** instead of a noisy, overloaded catalogue.
 
+The project now includes a **custom user system, polished auth pages (Sign up / Log in / Log out)** and a **contact form with backend validation**, so it behaves like a realistic small store you can extend to production.
+
 The goal is to provide:
 
-- A realistic storefront you can plug real products into  
+- A realistic storefront you can plug real products and customers into  
 - Clean, semantic Django templates ready to extend to production  
-- A strong portfolio project showing **CBV usage, template inheritance and custom styling**
+- A strong portfolio project showing **CBVs, custom user model, template inheritance, forms and a small DRF endpoint**
 
 <br>
 
@@ -32,7 +35,7 @@ The goal is to provide:
 | Type | Link |
 | :--- | :--- |
 | 👤 **Author** | [Sina Jokar – Backend Developer](https://www.linkedin.com/in/sinajokar/) |
-| 📦 **Repository** | `storedjango-main` on GitHub |
+| 📦 **Repository** | [`storedjango`](https://github.com/sinajokarr/storedjango) on GitHub |
 | 📧 **Contact** | [cnajokar11@yahoo.com](mailto:cnajokar11@yahoo.com) |
 
 ---
@@ -41,14 +44,15 @@ The goal is to provide:
 
 A compact overview of the technologies behind the storefront.
 
-### 🌐 Backend & Templates
+### 🌐 Backend, Auth & Templates
 
 | Category | Stack |
 | :--- | :--- |
 | **Language** | `Python 3.x` |
 | **Framework** | `Django 5.x` (Class-Based Views) |
 | **Templating** | Django Template Language (DTL) with `_base.html` layout |
-| **Auth** | `django.contrib.auth` + `LoginView` at `/accounts/login/` |
+| **Auth** | Custom user model `accounts.CustomUser` + Django auth views (`LoginView`, `LogoutView`, password change) |
+| **Forms** | `CustomUserCreationForm`, `CustomAuthenticationForm`, and `ContactForm` (FormView-based contact page) |
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python%203.x-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python Badge">
@@ -60,8 +64,9 @@ A compact overview of the technologies behind the storefront.
 | Category | Stack |
 | :--- | :--- |
 | **Database (dev)** | `SQLite` (`db.sqlite3`) |
-| **Static Assets** | Custom CSS theme `static/css/opera.css` |
-| **Views** | CBVs for product list/detail/cart/about/contact |
+| **Static Assets** | Custom CSS theme `static/css/opera.css` (quiet-luxury, soft neutral palette) |
+| **Views** | CBVs for product list/detail/cart/about + FormView for contact |
+| **API** | Lightweight DRF endpoint for cart summary (`/api/cart/retrieve_cart/`) used in the header cart counter |
 | **Runtime** | `python manage.py runserver` local dev |
 
 ---
@@ -72,54 +77,68 @@ A breakdown of what this template demonstrates.
 
 ### 🏬 Storefront & Cart
 
-* Product listing with grid layout and category support  
+* Product listing with grid layout and category filtering  
 * Product detail page (image, title, description, price, category)  
 * Cart page for adding/removing items and reviewing selections  
 * Empty states that keep the UI clean when there is no data yet  
+* Header cart counter powered by a small DRF endpoint (`retrieve_cart`)  
 
-### 🧭 Brand Pages
+### 👥 Accounts & Auth (Custom User)
 
-* **About** page explaining the Opera Home philosophy (Quiet Luxury / Craft / Experience)  
-* **Contact** page with structured sections for client messages and brand information  
+* Custom user model with fields like **username, email, phone** (and extensible for avatar / agency info)  
+* Clean, luxury-style **Sign up** page (`accounts/templates/accounts/signup.html`)  
+* Custom-styled **Log in** page (`templates/registration/login.html`) using `CustomAuthenticationForm`  
+* Simple **Log out** flow with `logged_out.html` template and redirect to product list  
+* Auth-aware navigation in `_base.html` (shows “Sign In / Sign Up” or “Hello, {{ user }} / Log out / Cart”)  
+
+### 🧭 Brand Pages & Contact
+
+* **About** page explaining Opera Home’s “Quiet Luxury” philosophy  
+* **Contact** page wired to a real `ContactForm` + `FormView`:
+  - Validates input server-side  
+  - Uses Django messages framework to show success alerts  
+  - Keeps the premium layout with client-care info and FAQ sections  
 * All pages extend `_base.html` to reuse header, footer and navigation  
-
-### 🔐 Auth: “Welcome Back”
-
-* Custom-styled Django `LoginView` rendered via `templates/registration/login.html`  
-* Navigation bar reacts to auth state (Log in / future Log out)  
-* URL: `/accounts/login/` (ready to extend with registration / password reset flows)  
 
 ---
 
 ## 🧱 Project Structure (Simplified)
 
 ```bash
-storedjango-main/
+storedjango/
 ├── accounts/
-│   └── urls.py                 # Login route (Django LoginView)
+│   ├── models.py                 # CustomUser model
+│   ├── forms.py                  # CustomUserCreationForm, CustomAuthenticationForm
+│   ├── views.py                  # SignUpView + custom_logout
+│   ├── urls.py                   # login / logout / signup / password-change urls
+│   └── templates/
+│       ├── accounts/
+│       │   └── signup.html       # Sign up page (quiet-luxury card)
+│       └── registration/
+│           ├── login.html        # Custom login page
+│           └── logged_out.html   # Logged-out screen
 ├── config/
-│   ├── settings.py             # INSTALLED_APPS, TEMPLATES, STATIC/MEDIA
-│   └── urls.py                 # include store + accounts urls
+│   ├── settings.py               # INSTALLED_APPS, AUTH_USER_MODEL, STATIC/MEDIA, templates
+│   └── urls.py                   # include store + accounts urls
 ├── store/
-│   ├── models.py               # Product, Category, Cart models (portfolio-ready)
-│   ├── views.py                # CBVs for list/detail/cart/about/contact
-│   ├── urls.py                 # namespaced 'store:' urls
+│   ├── models.py                 # Product, Category, Customer, Cart
+│   ├── forms.py                  # ContactForm for contact page
+│   ├── views.py                  # CBVs for list/detail/cart/about/contact (FormView)
+│   ├── urls.py                   # namespaced 'store:' urls
 │   └── templates/
 │       └── store/
 │           ├── product_list.html
 │           ├── product_detail.html
 │           ├── cart_detail.html
-│           ├── product_form.html / ProductCreate.html
+│           ├── product_form.html
 │           ├── delete_product.html
 │           ├── about.html
 │           └── contact.html
 ├── templates/
-│   ├── _base.html              # main layout (header/nav/footer)
-│   └── registration/
-│       └── login.html          # custom login page
+│   └── _base.html                # main layout (header/nav/footer + cart counter)
 └── static/
     └── css/
-        └── opera.css           # Opera Home visual theme (black–gold, quiet luxury)
+        └── opera.css             # Opera Home visual theme (quiet luxury)
 ````
 
 ---
@@ -128,8 +147,8 @@ storedjango-main/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/sinajokarr/storedjango-main.git
-cd storedjango-main
+git clone https://github.com/sinajokarr/storedjango.git
+cd storedjango
 
 # 2. Create & activate virtual environment
 python -m venv venv
@@ -152,18 +171,20 @@ Open in browser:
 
 * Storefront: `http://127.0.0.1:8000/`
 * About: `http://127.0.0.1:8000/about/`
-* Contact: `http://127.0.0.1:8000/contact/`
+* Contact (FormView + success message): `http://127.0.0.1:8000/contact/`
 * Cart: `http://127.0.0.1:8000/cart/`
 * Login: `http://127.0.0.1:8000/accounts/login/`
+* Sign up: `http://127.0.0.1:8000/accounts/signup/`
 
 ---
 
 ## 📊 What This Project Shows in a Portfolio
 
 * Clean **Django 5** setup with clear `config/` and app separation
-* Use of **Class-Based Views** for typical e-commerce flows
+* Use of **Class-Based Views + FormView** for typical e-commerce flows
+* A proper **custom user model** with custom forms and templates
 * Professional template inheritance and a **custom design system** in `opera.css`
-* A realistic base that can be extended to a full production shop (checkout, discounts, DRF API, analytics, etc.)
+* A realistic base that can be extended to a full production shop (checkout, discounts, more DRF APIs, analytics, etc.)
 
 ---
 
@@ -175,7 +196,7 @@ Open in browser:
 
 ### This repository is both a **Django store starter** and a **showcase project** for Opera Home’s quiet-luxury brand.
 
-If you have ideas for improvements (checkout flow, DRF API, better analytics), feel free to open an issue or a pull request.
+If you have ideas for improvements (checkout flow, richer DRF API, better analytics), feel free to open an issue or a pull request.
 
-
-
+</div>
+```
