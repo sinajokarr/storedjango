@@ -6,10 +6,13 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
     TemplateView,
+    FormView,         
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages  
 
 from .models import Product, Cart, Customer, Category
+from .forms import ContactForm       
 
 
 class StaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
@@ -95,5 +98,16 @@ class AboutView(TemplateView):
     template_name = "store/about.html"
 
 
-class ContactView(TemplateView):
+
+class ContactView(FormView):
     template_name = "store/contact.html"
+    form_class = ContactForm
+    success_url = reverse_lazy("store:contact")
+
+    def form_valid(self, form):
+
+        messages.success(
+            self.request,
+            "Your message has been sent. Our team will reply within one business day.",
+        )
+        return super().form_valid(form)

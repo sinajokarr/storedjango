@@ -1,67 +1,228 @@
 {% extends "_base.html" %}
+{% load static %}
 
-{% block title %}Log in | Opera Home{% endblock %}
+{% block title %}Log in | Opera Home{% endblock title %}
 
 {% block content %}
+<style>
+  .auth-section {
+    padding: 3rem 0 3.5rem;
+  }
+
+  .auth-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 2.6rem;
+    align-items: center;
+  }
+
+  .auth-copy-k {
+    max-width: 520px;
+  }
+
+  .auth-copy-k .page-title {
+    font-size: 1.9rem;
+    margin-bottom: .5rem;
+  }
+
+  .auth-copy-k .page-subtitle {
+    font-size: .96rem;
+    color: #6b7280;
+    margin-bottom: 1.2rem;
+  }
+
+  .auth-benefits-k {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: .86rem;
+    color: #4b5563;
+  }
+  .auth-benefits-k li {
+    display: flex;
+    align-items: flex-start;
+    gap: .45rem;
+    margin-bottom: .4rem;
+  }
+  .auth-benefits-k li::before {
+    content: "•";
+    color: #285e4a;
+    font-size: 1.1rem;
+    line-height: 1;
+    margin-top: .1rem;
+  }
+
+  .auth-card-k {
+    background: radial-gradient(circle at top left,#ffffff 0,#fdfaf5 42%,#f2ebe0 100%);
+    border-radius: 1.25rem;
+    padding: 1.8rem 1.8rem 1.7rem;
+    box-shadow: 0 22px 60px rgba(15,23,42,.16);
+    border: 1px solid rgba(226,214,199,.9);
+  }
+
+  .auth-card-k__title {
+    font-size: 1.25rem;
+    margin: 0 0 .4rem;
+  }
+
+  .auth-card-k__subtitle {
+    margin: 0 0 1.3rem;
+    font-size: .9rem;
+    color: #6b7280;
+  }
+
+  .auth-form-k {
+    display: flex;
+    flex-direction: column;
+    gap: .9rem;
+  }
+
+  .form-row-k {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    font-size: .84rem;
+  }
+
+  .form-row-k label {
+    font-weight: 500;
+    color: #374151;
+  }
+
+  .form-control-k input {
+    width: 100%;
+    border-radius: .75rem;
+    border: 1px solid #e2d6c7;
+    padding: .6rem .7rem;
+    font-size: .86rem;
+    outline: none;
+    background: #ffffff;
+    transition: border-color .16s ease-out, box-shadow .16s ease-out,
+                background .16s ease-out;
+  }
+
+  .form-control-k input:focus {
+    border-color: #285e4a;
+    box-shadow: 0 0 0 1px rgba(40,94,74,.2);
+    background: #ffffff;
+  }
+
+  .form-errors-k,
+  .form-row-k ul.errorlist {
+    list-style: none;
+    margin: 0;
+    padding: .45rem .6rem;
+    border-radius: .75rem;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    font-size: .78rem;
+    color: #b91c1c;
+  }
+  .form-row-k ul.errorlist {
+    padding: .3rem .45rem;
+  }
+
+  .auth-actions-k {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .7rem;
+    margin-top: .5rem;
+  }
+
+  .auth-link-k {
+    font-size: .8rem;
+    color: #285e4a;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .auth-footnote-k {
+    margin-top: 1.1rem;
+    font-size: .82rem;
+    color: #6b7280;
+    text-align: center;
+  }
+
+  .auth-footnote-k a {
+    color: #285e4a;
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    .auth-grid {
+      grid-template-columns: minmax(0,1fr);
+      gap: 2rem;
+    }
+    .auth-card-k {
+      padding: 1.6rem 1.4rem 1.5rem;
+    }
+  }
+</style>
+
 <section class="auth-section">
-  <div class="auth-layout">
-    <!-- Left side: copy / benefits -->
-    <div class="auth-copy">
+  <div class="auth-grid">
+    <!-- Left side: text / benefits -->
+    <div class="auth-copy-k">
       <span class="hero-pill">Opera Home · Account</span>
       <h1 class="page-title">Welcome back to Opera Home</h1>
       <p class="page-subtitle">
-        Sign in to see your cart, track orders, and save pieces you love for later.
+        Sign in to see your cart, track orders and save the pieces you love for later.
       </p>
 
-      <ul class="auth-benefits">
+      <ul class="auth-benefits-k">
         <li>View and edit your cart across all your devices.</li>
-        <li>Track delivery status and download your invoices.</li>
+        <li>Track delivery status and access your order history.</li>
         <li>Save favourites and build your own curated collection.</li>
       </ul>
     </div>
 
     <!-- Right side: login card -->
-    <div class="auth-card" aria-label="Log in form">
-      <h2 class="auth-card__title">Log in to your account</h2>
-      <p class="auth-card__subtitle">
+    <div class="auth-card-k" aria-label="Log in form">
+      <h2 class="auth-card-k__title">Log in to your account</h2>
+      <p class="auth-card-k__subtitle">
         Use your Opera Home account details to continue.
       </p>
 
-      <form method="post" class="auth-form">
+      <form method="post" class="auth-form-k" novalidate>
         {% csrf_token %}
+
         {% if form.non_field_errors %}
-          <div class="form-errors">
+          <div class="form-errors-k">
             {{ form.non_field_errors }}
           </div>
         {% endif %}
 
-        <div class="form-row">
+        <div class="form-row-k">
           <label for="{{ form.username.id_for_label }}">Email or username</label>
-          <div class="form-control">
+          <div class="form-control-k">
             {{ form.username }}
           </div>
           {{ form.username.errors }}
         </div>
 
-        <div class="form-row">
+        <div class="form-row-k">
           <label for="{{ form.password.id_for_label }}">Password</label>
-          <div class="form-control">
+          <div class="form-control-k">
             {{ form.password }}
           </div>
           {{ form.password.errors }}
         </div>
 
-        <div class="auth-actions">
+        <div class="auth-actions-k">
           <button type="submit" class="btn-primary">Log in</button>
-          <a href="#" class="auth-link">Forgot your password?</a>
+          <!-- این‌جا اصلاح شد: نام URL موجود در accounts/urls.py -->
+          <a href="{% url 'accounts:password_change' %}" class="auth-link-k">
+            Forgot your password?
+          </a>
         </div>
 
-        <p class="auth-footnote">
+        <p class="auth-footnote-k">
           New to Opera Home?
-          <a href="#" class="auth-link">Create an account</a>
+          <a href="{% url 'accounts:signup' %}">Create an account</a>
         </p>
       </form>
     </div>
   </div>
 </section>
-{% endblock %}
+{% endblock content %}

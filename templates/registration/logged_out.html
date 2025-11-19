@@ -1,0 +1,23 @@
+{% extends "_base.html" %}
+
+{% block title %}Logged out | Opera Home{% endblock title %}
+
+{% block content %}
+<section class="section">
+  <div class="empty-state-card">
+    <h2>You are logged out</h2>
+    <p>
+      Thank you for visiting Opera Home. You can keep browsing our collection
+      or sign in again to see your saved items.
+    </p>
+    <div class="empty-cta">
+      <a href="{% url 'store:products_list' %}" class="btn-primary">
+        Back to products
+      </a>
+      <a href="{% url 'accounts:login' %}" class="btn-secondary">
+        Log in again
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock content %}

@@ -1,46 +1,120 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Store{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Opera Home - Premium Design & Store{% endblock title %}</title>
+
+    <!-- Fonts & Icon Library -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet"
+    >
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+
+    <!-- Global stylesheet -->
     <link rel="stylesheet" href="{% static 'css/opera.css' %}">
+
+    {% block extra_head %}{% endblock extra_head %}
 </head>
-<body>
-    <header class="site-header">
-        <div class="container header-inner">
-            <a href="{% url 'store:products_list' %}" class="brand">
-                <span class="brand-mark"></span>
-                <span class="brand-text">Opera Home</span>
-            </a>
-            <nav class="main-nav">
-                <a href="{% url 'store:products_list' %}">Products</a>
-                <a href="{% url 'store:about' %}">About</a>
-                <a href="{% url 'store:contact' %}">Contact</a>
-                <a href="{% url 'store:cart_detail' %}" class="nav-cart">Cart</a>
-            </nav>
-            <div class="auth-area">
-                {% if user.is_authenticated %}
-                    <span class="auth-username">{{ user.username }}</span>
-                    <a href="{% url 'logout' %}" class="btn-ghost">Log out</a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn-ghost">Log in</a>
-                {% endif %}
-            </div>
-        </div>
-    </header>
+<body class="site-body">
 
-    <main class="site-main">
-        <div class="container">
-            {% block content %}{% endblock %}
-        </div>
-    </main>
+<header class="site-header" role="banner">
+    <div class="container header-inner">
+        <!-- Brand -->
+        <a href="{% url 'store:products_list' %}"
+           class="brand"
+           aria-label="Opera Home | Go to homepage">
+            <span class="brand-mark"></span>
+            <span class="brand-text">OPERA HOME</span>
+        </a>
 
-    <footer class="site-footer">
-        <div class="container footer-inner">
-            <p>© {{ now|date:"Y" }} Opera Home – All rights reserved.</p>
+        <!-- Main navigation -->
+        <nav class="main-nav" role="navigation" aria-label="Main navigation">
+            <a href="{% url 'store:products_list' %}" id="nav-products" class="main-nav__link">Products</a>
+            <a href="{% url 'store:about' %}" id="nav-about" class="main-nav__link">About Us</a>
+            <a href="{% url 'store:contact' %}" id="nav-contact" class="main-nav__link">Contact</a>
+            <a href="{% url 'accounts:signup' %}" class="btn-primary main-nav__cta">Sign Up</a>
+        </nav>
+
+        <!-- Auth + Cart -->
+        <div class="auth-area">
+            {% if user.is_authenticated %}
+                <span class="auth-username" title="Signed in as {{ user.username }}">
+                    Hello, {{ user.username }}
+                </span>
+                <a href="{% url 'accounts:logout' %}" class="btn-ghost">Log out</a>
+                <a href="{% url 'store:cart_detail' %}"
+                   class="nav-cart"
+                   aria-label="View your shopping cart">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                    <span id="cart-count" class="cart-count">(0)</span>
+                </a>
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="btn-ghost">Sign In</a>
+            {% endif %}
         </div>
-    </footer>
+    </div>
+</header>
+
+{% if messages %}
+    <div class="container message-container" role="alert">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<main class="site-main" role="main">
+    <div class="container">
+        {% block content %}{% endblock content %}
+    </div>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+    <div class="container footer-inner">
+        <p>&copy; {% now "Y" %} Opera Home – All rights reserved. Premium E-commerce Solution.</p>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function updateCartCount() {
+        const cartCountElement = document.getElementById('cart-count');
+        if (!cartCountElement) return;
+
+        fetch('/api/cart/retrieve_cart/')
+            .then(function (response) {
+                if (!response.ok) {
+                    throw new Error('Could not fetch cart data');
+                }
+                return response.json();
+            })
+            .then(function (data) {
+                const count = data.total_items || 0;
+                cartCountElement.textContent = `(${count})`;
+            })
+            .catch(function (error) {
+                console.error('Error updating cart count:', error);
+                cartCountElement.textContent = '(?)';
+            });
+    }
+    updateCartCount();
+});
+</script>
+
+{% block extra_js %}{% endblock extra_js %}
+{% block active_nav %}{% endblock active_nav %}
+
 </body>
 </html>
