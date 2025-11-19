@@ -1,4 +1,4 @@
-````markdown
+
 <div align="center">
   
 # 🛒 Opera Home Store – Quiet Luxury Django E-commerce Template ✨
@@ -199,4 +199,3 @@ Open in browser:
 If you have ideas for improvements (checkout flow, richer DRF API, better analytics), feel free to open an issue or a pull request.
 
 </div>
-```
